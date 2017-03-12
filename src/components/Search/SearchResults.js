@@ -1,27 +1,24 @@
 // ./src/components/book/BookPage.js
 import React from 'react';
 import { connect } from 'react-redux';
+import ItemList from '../Items/ItemList';
 import * as bookActions from '../../actions/bookActions';
 
 class SearchResults extends React.Component{
   constructor(props){
     super(props);
   }
-
-  // submitBook(input){
-  //   this.props.createBook(input);
-  // }
-
   render(){
     let titleInput;
     return(
       <div className="App">
-          <ItemList />
-          <CategoryList />
+          <ItemList search={this.props.params.search} />
       </div>
     )
   }
 }
+
+export default SearchResults;
 
 // // Maps state from store to props
 // const mapStateToProps = (state, ownProps) => {

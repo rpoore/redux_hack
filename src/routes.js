@@ -8,6 +8,6 @@ import Container from './components/Container';
 export default (
   <Route path="/" component={Container}>
     <IndexRoute component={App}></IndexRoute>
-    <Route path="/search/:name" component={SearchResults} />
+    <Route path="/search/:search" component={SearchResults} />
   </Route>
 );

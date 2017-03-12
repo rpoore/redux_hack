@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { Grid, Col, Thumbnail } from 'react-bootstrap';
+import { Grid, Col, Thumbnail, ListGroup, Image } from 'react-bootstrap';
 import {Link, withRouter, history } from 'react-router';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import './components/Items/ItemList.css';
+// import './ItemList.css';
+const POSTS_URL = 'https://api.swiftype.com/api/v1/public/engines/search.json';
 
-const POSTS_URL = 'https://public-api.wordpress.com/rest/v1.1/sites/techcrunch.com/posts?number=20';
-
-
-class ItemList extends React.Component {
+class ItemList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,12 +14,17 @@ class ItemList extends React.Component {
       posts: null
     };
   }
-  componentWillMount() {
-    axios.get(POSTS_URL)
+  fetchData(query) {
+    axios.get(POSTS_URL, {
+        params: {
+          "engine_key": "zYD5B5-eXtZN9_epXvoo",
+          "q": query
+        }
+      })
       .then((response) => {
         this.setState({
           loaded: true,
-          posts: response.data.posts
+          posts: response.data.records.page
         });
       })
       .catch((error) => {
@@ -31,24 +34,35 @@ class ItemList extends React.Component {
         });
       });
   }
+  componentWillMount() {
+    this.fetchData(this.props.search);
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.search !== this.props.search) {
+      this.setState({loaded:false});
+      this.fetchData(nextProps.search);
+    }
+  }
   render() {
-    if (this.state.loaded) {
-      console.log(this.state)
+    if (this.state.loaded && this.state.posts) {
       const list = this.state.posts.map((post, index) => {
-        if (post.post_thumbnail) {
-          return <Col sm={6} md={4}>
-          <Thumbnail key={index} src={post.post_thumbnail.URL} alt="242x200">
-          <div className="Contain"><Link to="/article/{post.title}">{post.title}</Link></div>
-          </Thumbnail>
-          </Col>
+        if (post.image) {
+          return (
+            <Col xs={6} md={4} key={index}>
+              <Thumbnail>
+                <Image src={post.image}/>
+                <h4>{post.title}</h4>
+              </Thumbnail>
+            </Col>
+          )
         } else {
           return null
         }
       });
       return (
-        <Grid fluid className="ItemList" >
+        <ListGroup className="ItemList">
           {list} 
-        </Grid>
+        </ListGroup>
       );
     } else {
       return (

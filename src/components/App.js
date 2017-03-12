@@ -1,8 +1,11 @@
 // ./src/components/App.js
 import React  from 'react';
-import {Link} from 'react-router';
-import { connect } from 'react-redux';
+import { browserHistory, Link} from 'react-router';
+import { connect, dispatch } from 'react-redux';
 import { Button, FormGroup, InputGroup, FormControl } from 'react-bootstrap';
+import * as searchActions from '../actions/searchActions';
+
+import 'bootstrap/dist/css/bootstrap.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,6 +19,7 @@ class App extends React.Component {
   }
   handleSubmit(event) {
     event.preventDefault();
+    this.props.searchTerm(this.state.search);
     browserHistory.push('/search/' + this.state.search);
   }
   render() {
@@ -42,5 +46,21 @@ class App extends React.Component {
   } 
 }
 
-export default App
 
+// Maps state from store to props
+const mapStateToProps = (state, ownProps) => {
+  console.log(state);
+  return {
+    search: state.search
+  }
+};
+
+// Maps actions to props
+const mapDispatchToProps = (dispatch) => {
+  return {
+    searchTerm: search => dispatch(searchActions.searchTerm(search))
+  }
+};
+
+// Use connect to put them together
+export default connect(mapStateToProps, mapDispatchToProps)(App); 
