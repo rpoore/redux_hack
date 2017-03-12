@@ -29,7 +29,7 @@ class App extends React.Component {
           <div className="Search">
             <form className="search" action='/search' onSubmit={this.handleSubmit}>
               <FormGroup className="input-search">
-                <FormControl type="text" value={this.state.search} placeholder="Milk.." onChange={this.handleChangeText} />
+                <FormControl type="text" value={this.state.search} placeholder="Search for news.." onChange={this.handleChangeText} />
               </FormGroup>
               <FormGroup>
                 <Button type="submit" value="Submit">
@@ -39,7 +39,6 @@ class App extends React.Component {
             </form>
           </div>
         </p>
-        <Link to="/">Go to Home</Link>
         {this.props.children}
       </div>
     )
@@ -49,7 +48,6 @@ class App extends React.Component {
 
 // Maps state from store to props
 const mapStateToProps = (state, ownProps) => {
-  console.log(state);
   return {
     search: state.search
   }

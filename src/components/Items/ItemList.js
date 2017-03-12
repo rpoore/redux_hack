@@ -3,7 +3,7 @@ import { Grid, Col, Thumbnail, ListGroup, Image } from 'react-bootstrap';
 import {Link, withRouter, history } from 'react-router';
 import axios from 'axios';
 import { connect } from 'react-redux';
-// import './ItemList.css';
+import './ItemList.css';
 const POSTS_URL = 'https://api.swiftype.com/api/v1/public/engines/search.json';
 
 class ItemList extends Component {
