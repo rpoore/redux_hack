@@ -1,6 +1,7 @@
 // ./src/reducers/index.js
 import { combineReducers } from 'redux';
-import books from './bookReducers'
+import books from './bookReducers';
+import cart from './cartReducers';
 
 export default combineReducers({
   books: books,

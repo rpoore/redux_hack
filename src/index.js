@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import { Button, FormGroup, InputGroup, FormControl } from 'react-bootstrap';
 import configureStore from './store/configureStore';
 
 const store = configureStore();

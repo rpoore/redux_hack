@@ -1,0 +1,5 @@
+.CategoryList {
+	float:left;
+	list-style: none;
+	max-width: 25%;
+}
